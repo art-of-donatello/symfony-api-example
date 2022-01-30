@@ -1,6 +1,9 @@
-//*****    Documentation For Symfony Api   *****\\
+##    Documentation For Symfony Api   
 
-***** Get Orders *****
+    This Symfony application demonstrates Symfony User operations and Api applications with 
+    Jwt token.
+
+## Get Orders 
 
     This function returns all orders with details.
 
@@ -8,9 +11,9 @@
 
 
 
-***** EDIT ORDER *****
+## Edit Order
 
-This function edits Order.
+    This function edits Order.
 
     edit:
 
@@ -25,7 +28,7 @@ This function edits Order.
             Form-data: shippingDate = shippingDate
 
 
-***** GET JWT TOKEN *****
+## Get Jwt Token
     This function returns new Jwt Token for Api usage. You have to enter with login Credentials
     
     Usage:
@@ -36,7 +39,7 @@ This function edits Order.
 
 
 
-***** CREATE NEW USER *****
+## Create New User
     This function returns new user. 
     
     Usage:
