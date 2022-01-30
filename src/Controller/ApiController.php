@@ -14,18 +14,7 @@ use App\Entity\User;
 
 class ApiController extends AbstractController
 {
-    /**
-     * @Route("/api", name="api")
-     */
-    public function index(): Response
-    {
 
-
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ApiController.php',
-        ]);
-    }
 
 
     /**
@@ -38,6 +27,7 @@ class ApiController extends AbstractController
         $quantity     = $request->request->get( 'quantity' );
         $adress       = $request->request->get( 'adress' );
         $shippingDate = $request->request->get( 'shippingDate' );
+        // Possible filters and data manipulationss
         $userid = $this->getUser()->getId();
         $order=['orderCode'=>$orderCode,'productId' => $productId,'quantity' => $quantity,'adress' => $adress,'shippingDate' => $shippingDate,'userid' =>  $userid   ];
 
