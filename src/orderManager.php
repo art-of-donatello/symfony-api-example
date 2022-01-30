@@ -31,18 +31,18 @@ class orderManager
      * Get All orders
      */
 
-    public function getOrders(array $orders = []) : Collection
+    public function getOrders(string $userid)
     {
-        $records = $this->em->getRepository()->findAll();
+        $records = $this->getRepository()->findBy(['userid' => $userid]);
 
-        dd($records);
+        return $records;
     }
 
 
     public function saveOrder($order)
     {
 
-        $orderCode = $this -> getRepository () -> findOneBy ( [ "orderCode" => $order[ 'orderCode' ] ] );
+        $orderCode = $this->getOneByOrder( $order[ 'orderCode' ],$order[ 'userid' ] );
         if ( empty( $orderCode ) ) {
             $newOrder = new Order();
 
@@ -51,6 +51,8 @@ class orderManager
             $newOrder -> setQuantity ( $order[ 'quantity' ] );
             $newOrder -> setShippingDate ( $order[ 'shippingDate' ] );
             $newOrder -> setAdress ( $order[ 'adress' ] );
+            $newOrder -> setUserid ($order[ 'userid' ]);
+
 
             $this -> em -> persist ( $newOrder );
             $this -> em -> flush ();
@@ -60,8 +62,38 @@ class orderManager
         } else {
             return "This is already saved";
         }
+    }
 
 
+    public function updateOrder($order)
+    {
+        $orderCode = $this -> getOneByOrder ( $order[ 'orderCode'] ,$order[ 'userid' ] );
+
+        if ( ! empty( $orderCode ) && empty( $orderCode -> getShippingDate() ) ) {
+
+            ! empty( $order[ 'productId' ] ) ? $orderCode -> setProductId( $order[ 'productId' ] ) : "";
+            ! empty( $order[ 'orderCode' ] ) ? $orderCode -> setOrderCode( $order[ 'orderCode' ] ) : "";
+            ! empty( $order[ 'quantity' ] ) ? $orderCode -> setQuantity( $order[ 'quantity' ] ) : "";
+            ! empty( $order[ 'shippingDate' ] ) ? $orderCode -> setShippingDate( $order[ 'shippingDate' ] ) : "";
+            ! empty( $order[ 'adress' ] ) ? $orderCode -> setAdress( $order[ 'adress' ] ) : "";
+
+
+            $this -> em -> persist( $orderCode );
+            $this -> em -> flush();
+            $orderCode = $this -> getOneByOrder( $order[ 'orderCode' ],$order[ 'userid' ] );
+            return $orderCode;
+
+        } elseif ( ! empty( $orderCode -> getShippingDate() ) ) {
+            return " Shipping date already entered";
+        } else {
+            return "order not found ";
+        }
+
+    }
+
+    public function getOneByOrder(string $OrderCode,$userid) :? Order
+    {
+        return $this->getRepository()->findOneBy(['orderCode' => $OrderCode,'userid' => $userid]);
     }
 
     public function getRepository()

@@ -13,6 +13,19 @@ login:
 api:
   path: api/test
   controller: App\Controller\ApiController::index
+
 createorder:
   path: api/createorder
   controller: App\Controller\ApiController::createorder
+
+updateOrder:
+  path: api/updateorder
+  controller: App\Controller\ApiController::updateorder
+
+getorders:
+  path: api/getorders
+  controller: App\Controller\ApiController::getorders
+
+getorder:
+  path: api/{ordercode}/getorder
+  controller: App\Controller\ApiController::getorder

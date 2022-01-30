@@ -20,7 +20,7 @@ class Order
      */
     private $id;
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      */
     private $orderCode;
     /**
@@ -39,6 +39,32 @@ class Order
      * @ORM\Column(type="string", nullable=true)
      */
     private $shippingDate;
+
+
+    /**
+     *
+     *@ORM\Column(type="integer", nullable=false)
+     */
+    private $userid;
+
+    /**
+     * @return mixed
+     */
+    public function getUserid()
+    {
+        return $this -> userid;
+    }
+
+    /**
+     * @param mixed $userid
+     */
+    public function setUserid( $userid ): void
+    {
+        $this -> userid = $userid;
+    }
+
+
+
 
     /**
      * @return mixed

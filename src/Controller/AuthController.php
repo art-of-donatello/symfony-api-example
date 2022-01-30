@@ -14,16 +14,6 @@ use Firebase\JWT\JWT;
 
 class AuthController extends AbstractController
 {
-    /**
-     * @Route("/auth", name="auth")
-     */
-    public function index(): Response
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/AuthController.php',
-        ]);
-    }
 
 
     /**
@@ -32,10 +22,12 @@ class AuthController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder,ManagerRegistry $ManagerRegistry)
     {
         $password = $request->get('password');
-        $email = $request->get('username');
+        $username = $request->get('username');
+        $role = $request->get('role');
         $user = new User();
         $user->setPassword($encoder->encodePassword($user, $password));
-        $user->setUsername($email);
+        $user->setUsername($username);
+        $user->setRoles(array($role));
         $em = $this->getDoctrine()->getManager();
 
         $em->persist($user);
